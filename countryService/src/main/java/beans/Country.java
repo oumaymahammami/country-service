@@ -21,5 +21,6 @@ public class Country {
     private String name;
     @Column(name="capital_name")
     private String Capital;
+// Updated Country entity for Jenkins test
 
 }
