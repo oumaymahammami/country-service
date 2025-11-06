@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKERHUB_CREDENTIALS_ID = 'dockerhub-credentials'
+        DOCKERHUB_CREDENTIALS_ID = 'dockerhub-pwd'  // ← CHANGER ICI
         DOCKER_IMAGE = 'oumaymahammami/country-service'
         DOCKER_REGISTRY = 'docker.io'
     }
