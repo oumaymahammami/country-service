@@ -1,13 +1,6 @@
 pipeline {
     agent any
     tools {
-<<<<<<< HEAD
-        maven "maven"
-    }
-    
-    stages {
-        stage('Checkout code') {
-=======
         jdk 'JDK21'
         maven 'M2_HOME'
     }
@@ -20,24 +13,16 @@ pipeline {
 
     stages {
         stage('Checkout') {
->>>>>>> 9c55720 (Fix bug in login form and update CSS styling)
             steps {
                 git branch: 'main', url: 'https://github.com/oumaymahammami/country-service.git'
             }
         }
-<<<<<<< HEAD
-        
-        stage('Compile, test code, package in jar file and store it in maven repo') {
-            steps {
-                sh 'mvn clean install'
-=======
 
         stage('Build & Test') {
             steps {
                 echo '🔧 Compiling and testing...'
                 sh 'mvn clean compile'
                 sh 'mvn test'
->>>>>>> 9c55720 (Fix bug in login form and update CSS styling)
             }
             post {
                 success {
@@ -45,16 +30,6 @@ pipeline {
                 }
             }
         }
-<<<<<<< HEAD
-        
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv(installationName: 'MySonarQubeServer', credentialsId: 'sonar') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=country-service -Dsonar.projectName=country-service'
-                }
-            }
-        }
-=======
 
         stage('Package') {
             steps {
@@ -100,8 +75,8 @@ pipeline {
                     sh 'docker stop country-service || true'
                     sh 'docker rm country-service || true'
 
-                    // Run new container
-                    sh "docker run -d -p 8080:8080 --name country-service ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                    // Run new container - CORRECTION: utiliser le port 8082 comme dans votre Dockerfile
+                    sh "docker run -d -p 8082:8082 --name country-service ${DOCKER_IMAGE}:${BUILD_NUMBER}"
                 }
             }
         }
@@ -120,6 +95,5 @@ pipeline {
         failure {
             echo '❌ Pipeline failed. Check console output for details.'
         }
->>>>>>> 9c55720 (Fix bug in login form and update CSS styling)
     }
 }
